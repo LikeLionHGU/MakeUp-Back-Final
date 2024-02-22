@@ -13,7 +13,7 @@ import com.makeup.dto.MemberDto;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
     private final MemberService memberService;
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ExceptionController{
 
     @ExceptionHandler(EmailAlreadyExistsException.class)

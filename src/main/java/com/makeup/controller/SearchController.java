@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController()
 @RequestMapping("/posts")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SearchController {
 
     private final SearchService searchService;
