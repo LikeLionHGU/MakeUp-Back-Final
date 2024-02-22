@@ -25,7 +25,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController()
 @RequestMapping("/posts")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("*")
 public class PostController {
 
     @Autowired
