@@ -28,7 +28,7 @@ public class Post {
     @JoinColumn(name = "member_id") // 데이터베이스의 실제 컬럼 이름으로 수정
     private Member member;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BrandProduct> brandProducts = new ArrayList<>();
 
     public static Post toPost(PostDto dto, Member member) {

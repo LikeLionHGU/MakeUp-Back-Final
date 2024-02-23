@@ -60,11 +60,11 @@ public class PostService {
 
         PostDto postDto = PostDto.from(postForm, url);
 
-        List<BrandProduct> brandProducts = postDto.getBrandProducts().stream().map(bp -> BrandProduct.toBrandProduct(bp, post)).toList();
-
         post.setTitle(postForm.getTitle());
         post.setImageUrl(url);
-        post.setBrandProducts(brandProducts);
+        post.getBrandProducts().clear();
+
+        List<BrandProduct> brandProducts = postDto.getBrandProducts().stream().map(bp -> BrandProduct.toBrandProductAndAddToPost(bp, post)).toList();
 
     }
 
@@ -75,10 +75,10 @@ public class PostService {
         post.setTitle(postForm.getTitle());
         PostDto postDto = PostDto.from(postForm);
 
-        List<BrandProduct> brandProducts = postDto.getBrandProducts().stream().map(bp -> BrandProduct.toBrandProduct(bp, post)).toList();
-
         post.setTitle(postForm.getTitle());
-        post.setBrandProducts(brandProducts);
+        post.getBrandProducts().clear();
+
+        List<BrandProduct> brandProducts = postDto.getBrandProducts().stream().map(bp -> BrandProduct.toBrandProductAndAddToPost(bp, post)).toList();
     }
 
     // DeltePost 메소드 추가
