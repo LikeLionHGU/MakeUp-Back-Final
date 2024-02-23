@@ -32,6 +32,6 @@ public class AuthController {
     @PostMapping ("/sign-in")
     public BaseResponse<?> signIn(@RequestBody SignInForm form) {
         Long memberId = memberService.signInMember(MemberDto.from(form));
-        return BaseResponse.success(memberId);
+        return BaseResponse.successMemberId(memberId);
     }
 }

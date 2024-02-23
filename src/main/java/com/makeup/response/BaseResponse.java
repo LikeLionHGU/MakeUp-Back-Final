@@ -21,6 +21,8 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
+
+
     public BaseResponse(T data, String message) {
         this.success = true;
         this.message = message;
@@ -42,6 +44,10 @@ public class BaseResponse<T> {
 
     // 성공과 오류 응답을 생성하는 정적 메소드
     public static <T> BaseResponse<T> success(T data) {
+        return new BaseResponse<>(data);
+    }
+
+    public static <T> BaseResponse<T> successMemberId(T data) {
         return new BaseResponse<>(data);
     }
 

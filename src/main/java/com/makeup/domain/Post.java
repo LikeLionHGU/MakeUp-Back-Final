@@ -35,6 +35,7 @@ public class Post {
         return Post.builder()
                 .title(dto.getTitle())
                 .imageUrl(dto.getImageUrl())
+                .brandProducts(new ArrayList<>())
                 .member(member)
                 .build();
     }

@@ -4,6 +4,7 @@ import com.makeup.domain.BrandProduct;
 import lombok.*;
 
 @Getter
+@NoArgsConstructor
 public class BrandProductDto {
 
     private String brandName;
