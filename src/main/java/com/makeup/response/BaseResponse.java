@@ -21,8 +21,6 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
-
-
     public BaseResponse(T data, String message) {
         this.success = true;
         this.message = message;
