@@ -1,5 +1,6 @@
 package com.makeup.controller.Form;
 
+import com.makeup.domain.Gender;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +18,7 @@ public class SignUpForm {
 
     private String birthYear;
 
-    private Boolean gender;
+    private Gender gender;
 
     private String phoneNumber;
 

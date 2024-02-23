@@ -6,13 +6,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class MentoReservationForm {
-    private Long memberId;
+public class AvailableDateForm {
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate mentoDate;
+    private List<LocalDate> availableDates;
 
 }

@@ -3,6 +3,7 @@ package com.makeup.dto;
 import com.makeup.controller.Form.EditMemberForm;
 import com.makeup.controller.Form.SignInForm;
 import com.makeup.controller.Form.SignUpForm;
+import com.makeup.domain.Gender;
 import com.makeup.domain.Member;
 import lombok.*;
 
@@ -19,10 +20,8 @@ public class MemberDto {
     private String userNickname;
     private String password;
     private String birthYear;
-    private Boolean gender;
+    private Gender gender;
     private String phoneNumber;
-
-    private int age;
 
     // Form에서
     public static MemberDto from(SignUpForm signUpForm) {
@@ -53,17 +52,14 @@ public class MemberDto {
                 .password(member.getPassword())
                 .gender(member.getGender())
                 .phoneNumber(member.getPhoneNumber())
-                .age(member.getAge())
                 .build();
     }
 
-    public static MemberDto from(EditMemberForm editMemberForm) {
-        return MemberDto.builder()
-                .username(editMemberForm.getUsername())
-                .birthYear(editMemberForm.getBirthYear())
-                .gender(editMemberForm.getGender())
-                .build();
-    }
-
-
+//    public static MemberDto from(EditMemberForm editMemberForm) {
+//        return MemberDto.builder()
+//                .username(editMemberForm.getUsername())
+//                .birthYear(editMemberForm.getBirthYear())
+//                .gender(editMemberForm.getGender())
+//                .build();
+//    }
 }

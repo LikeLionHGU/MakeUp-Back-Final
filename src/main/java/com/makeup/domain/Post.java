@@ -1,10 +1,16 @@
 package com.makeup.domain;
 
+import com.makeup.controller.Form.PostForm;
+import com.makeup.dto.PostDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -15,23 +21,21 @@ public class Post {
     private Long postId;
 
     private String title;
-    private String content;
-    private String imageUrl;
-    private String text;
-    private String brandName;
-    private String cosName;
 
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberId") // 데이터베이스의 실제 컬럼 이름으로 수정
+    @JoinColumn(name = "member_id") // 데이터베이스의 실제 컬럼 이름으로 수정
     private Member member;
 
-    public void update(String title, String content, String imageUrl, String text, String brandName, String cosName) {
-        this.title = title;
-        this.content = content;
-        this.imageUrl = imageUrl;
-        this.text = text;
-        this.brandName = brandName;
-        this.cosName = cosName;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<BrandProduct> brandProducts = new ArrayList<>();
+
+    public static Post toPost(PostDto dto, Member member) {
+        return Post.builder()
+                .title(dto.getTitle())
+                .imageUrl(dto.getImageUrl())
+                .member(member)
+                .build();
     }
 }

@@ -12,5 +12,5 @@ public class ImageDto {
     private String postId;
     private String userId;
     private String imageUrl;
-    private String text;
+    private String titl;
 }

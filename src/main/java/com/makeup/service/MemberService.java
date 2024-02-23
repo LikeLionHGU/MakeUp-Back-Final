@@ -9,11 +9,6 @@ import org.springframework.stereotype.Service;
 import com.makeup.domain.Member;
 import com.makeup.exception.MemberNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.makeup.domain.Member.findAge;
-
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -28,7 +23,6 @@ public class MemberService {
         boolean validation = memberRepository
                 .existsByEmail(email);
         if (validation) { throw new EmailAlreadyExistsException();}
-
 
     }
 
@@ -49,16 +43,16 @@ public class MemberService {
         return MemberDto.from(member);
     }
 
-    @Transactional
-    public Long editProfileOf(Long memberId, MemberDto memberDto) {
-        Member member =
-                memberRepository
-                        .findMemberById(memberId)
-                        .orElseThrow(MemberNotFoundException::new);
-        member.setUsername(memberDto.getUsername());
-        member.setBirthYear(memberDto.getBirthYear());
-        member.setGender(memberDto.getGender());
-        member.setAge(findAge(memberDto.getBirthYear()));
-        return member.getMemberId();
-    }
+//    @Transactional
+//    public Long editProfileOf(Long memberId, MemberDto memberDto) {
+//        Member member =
+//                memberRepository
+//                        .findMemberById(memberId)
+//                        .orElseThrow(MemberNotFoundException::new);
+//        member.setUsername(memberDto.getUsername());
+//        member.setBirthYear(memberDto.getBirthYear());
+//        member.setGender(memberDto.getGender());
+//        member.setAge(findAge(memberDto.getBirthYear()));
+//        return member.getMemberId();
+//    }
 }

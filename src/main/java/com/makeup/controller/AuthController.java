@@ -4,6 +4,7 @@ import com.makeup.controller.Form.SignInForm;
 import com.makeup.controller.Form.SignUpForm;
 import com.makeup.controller.Response.ApiResponse;
 import com.makeup.controller.Response.MemberIdResponse;
+import com.makeup.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,29 +14,24 @@ import com.makeup.dto.MemberDto;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
     private final MemberService memberService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<ApiResponse> signUp(@RequestBody SignUpForm form) {
+    public BaseResponse<?> signUp(@RequestBody SignUpForm form) {
         Long memberId = memberService.addMember(MemberDto.from(form));
-        ApiResponse response = new MemberIdResponse(memberId);
-        return ResponseEntity.ok(response);
+        return BaseResponse.success(memberId);
     }
 
     @GetMapping("/sign-up/validation")
-    public ResponseEntity<ApiResponse> validateId(@RequestParam String email) {
+    public BaseResponse<?> validateId(@RequestParam String email) {
         memberService.validateEmail(email);
-        return ResponseEntity.ok(new ApiResponse(true));
+        return BaseResponse.ok();
     }
 
     @PostMapping ("/sign-in")
-    public ResponseEntity<ApiResponse> signIn(@RequestBody SignInForm form) {
+    public BaseResponse<?> signIn(@RequestBody SignInForm form) {
         Long memberId = memberService.signInMember(MemberDto.from(form));
-        ApiResponse response = new MemberIdResponse(memberId);
-        return ResponseEntity.ok(response);
+        return BaseResponse.success(memberId);
     }
-
-
 }

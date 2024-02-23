@@ -1,6 +1,9 @@
 package com.makeup.service;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -13,21 +16,21 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class S3Service {
-    private String bucketName = "makeuplion";
-    private final S3Client s3Client;
+    private final AmazonS3 s3Client;
+
+    @Value("${app.s3.bucket}")
+    private String bucketName;
 
     public String uploadFile(MultipartFile file) {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         try {
-            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .build();
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(file.getSize());
+            metadata.setContentType(file.getContentType());
 
-            PutObjectResponse putObjectResponse = s3Client.putObject(putObjectRequest,
-                    RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+            s3Client.putObject(bucketName, fileName, file.getInputStream(), metadata);
+            return s3Client.getUrl(bucketName, fileName).toString();
 
-            return s3Client.utilities().getUrl(builder -> builder.bucket(bucketName).key(fileName)).toExternalForm();
         } catch (IOException e) {
             throw new RuntimeException("S3 파일 업로드 중 에러 발생", e);
         }
