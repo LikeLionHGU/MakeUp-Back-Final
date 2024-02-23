@@ -1,4 +1,4 @@
-package com.makeup.repository;
+/*package com.makeup.repository;
 
 import com.makeup.domain.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,3 +11,4 @@ public interface MenteeReservationRepository extends JpaRepository<Reservation, 
     @Query("select m from Reservation m  where m.mentoReservationId = :mentoReservationId")
     List<Reservation> findBymentoReservationId(Long mentoReservationId);
 }
+*/
