@@ -22,6 +22,11 @@ public class AvailableDateDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate availableDates;
 
+    public static AvailableDateDto from(LocalDate date) {
+        return AvailableDateDto.builder()
+                .availableDates(date)
+                .build();
+    }
     public static AvailableDateDto from(AvailableDate date) {
         return AvailableDateDto.builder()
                 .availableDates(date.getAvailableDate())

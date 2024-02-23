@@ -19,16 +19,16 @@ public class CalendarService {
 
     private final AvailableDateRepository availableDateRepository;
     private final MemberRepository memberRepository;
-    
-    public Long addReservationDate(Long memberId, AvailableDateForm form) {
+
+    public void addReservationDate(Long memberId, AvailableDateForm form) {
         Member member =
                 memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
 
-        List<AvailableDateDto> availableDateDtoList = form.getAvailableDates().stream().map();
+        List<AvailableDate> dates = form.getAvailableDates().stream()
+                .map(localDate -> AvailableDate.toAvailableDate(localDate, member))
+                .toList();
 
-
-        Calendar calendar = availableDateRepository.save(Calendar.toCalendar(availableDateList, member));
-        return calendar.getMentoReservationId();
+        availableDateRepository.saveAll(dates);
     }
 
     public List<AvailableDateDto> getAvailableDatesOf(Long memberId) {

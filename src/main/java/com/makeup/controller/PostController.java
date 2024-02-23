@@ -4,7 +4,10 @@ import com.amazonaws.services.s3.model.ListObjectsV2Request;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.fasterxml.jackson.databind.ser.Serializers;
+import com.makeup.controller.Form.AvailableDateForm;
 import com.makeup.controller.Form.PostForm;
+import com.makeup.controller.Response.ApiResponse;
+import com.makeup.controller.Response.MentoDateIdResponse;
 import com.makeup.domain.Post;
 import com.makeup.dto.*;
 import com.makeup.response.BaseResponse;
@@ -89,6 +92,12 @@ public class PostController {
         List<PostDto> searchedList = postService.search(keyword);
         List<PostResponse.BasicInfo> res = searchedList.stream().map(PostResponse.BasicInfo::new).toList();
         return BaseResponse.success(res);
+    }
+
+    @PostMapping("/calendar/{memberId}")
+    public BaseResponse<Void> mentoReservation(@PathVariable Long memberId, @RequestBody AvailableDateForm availableDateForm) {
+        calendarService.addReservationDate(memberId, availableDateForm);
+        return BaseResponse.ok();
     }
 }
 

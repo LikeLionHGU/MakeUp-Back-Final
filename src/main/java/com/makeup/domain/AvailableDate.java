@@ -1,5 +1,6 @@
 package com.makeup.domain;
 
+import com.makeup.dto.AvailableDateDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,4 +26,10 @@ public class AvailableDate {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public static AvailableDate toAvailableDate(LocalDate localDate, Member member) {
+        return AvailableDate.builder()
+                .availableDate(localDate)
+                .member(member)
+                .build();
+    }
 }
