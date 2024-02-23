@@ -7,10 +7,12 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.makeup.domain.Post;
 import com.makeup.dto.PostCreateRequestDto;
 import com.makeup.dto.PostUpdateRequestDto;
+import com.makeup.exception.ResourceNotFoundException;
 import com.makeup.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,18 +59,16 @@ public class PostService {
 
         return postRepository.save(post); // 수정된 Post 객체를 반환
     }
-//    //updatePost 메소드 추가
-//    public Post updatePost(Long postId, PostUpdateRequestDto requestDto, MultipartFile file) {
-//        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당 게시물이 없습니다."));
-//        String url = s3Service.uploadFile(file); // 파일 업로드 로직 호출
-//        post.update(requestDto.getTitle(), requestDto.getContent(), url);   // update 메소드 호출
-//
-//        return postRepository.save(post); // 수정된 Post 객체를 반환
-//}
 
     // DeltePost 메소드 추가
     public void deletePost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시물이 없습니다."));
         postRepository.delete(post);
+    }
+
+
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
     }
 }

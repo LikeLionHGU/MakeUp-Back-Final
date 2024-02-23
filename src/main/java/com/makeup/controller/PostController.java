@@ -37,20 +37,8 @@ public class PostController {
     private String bucketName;
 
 
-//    @GetMapping("/images/main")
-//    public ResponseEntity<?> listImages() {
-//        List<ImageInfo> imageInfos = awsS3Service.getFilesUrls();
-//        Map<String, Object> responseBody = new HashMap<>();
-//        responseBody.put("urls", imageInfos);
-//        return ResponseEntity.ok(responseBody);
-//    }
 
-    //     메인화면 이미지 목록을 조회함
-//    @GetMapping("/images/main")
-//    public ResponseEntity<List<String>> listImages() {
-//        List<String> urls = awsS3Service.getFilesUrls();
-//        return ResponseEntity.ok(urls);
-//    }
+    // 메인페이지
     @GetMapping("/images")
     public BaseResponse<List<ImageDto>> listImages() {
         ListObjectsV2Result result = s3Client.listObjectsV2(new ListObjectsV2Request().withBucketName(bucketName));
@@ -90,23 +78,14 @@ public class PostController {
 
         return BaseResponse.success(imageDtos);
     }
+
     // 게시물 등록
     @PostMapping("/")
     public BaseResponse<?> createPost(@RequestPart("json") PostCreateRequestDto postCreateRequestDto,
                                       @RequestPart("file") MultipartFile file) {
-//        try {
         Post post = postService.createPost(postCreateRequestDto, file); // 수정된 서비스 메서드 호출
 
         return BaseResponse.success(post);
-//        }
-//        catch (Exception e) {
-//            // 실패 응답 구성
-//            Map<String, Object> errorResponse = new HashMap<>();
-//            errorResponse.put("status", "error");
-//            errorResponse.put("message", "게시물 생성 중 오류 발생");
-//            errorResponse.put("error", Map.of("message", e.getMessage()));
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-//        }
     }
 
     // 게시물 삭제로직
@@ -148,5 +127,15 @@ public class PostController {
     }
 
 
+    // 게시물 상세 조회
+    @GetMapping("/{postId}")
+    public BaseResponse<Post> getPost(@PathVariable Long postId) {
+        try {
+            Post post = postService.getPostById(postId);
+            return BaseResponse.success(post);
+        } catch (Exception e) {
+            return BaseResponse.error(e.getMessage());
+        }
+    }
 }
 
