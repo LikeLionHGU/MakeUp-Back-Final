@@ -4,6 +4,7 @@ import com.makeup.controller.Response.ApiResponse;
 import com.makeup.controller.Response.ExceptionResponse;
 import com.makeup.exception.EmailAlreadyExistsException;
 import com.makeup.exception.MemberNotFoundException;
+import com.makeup.exception.PostNotFoundException;
 import com.makeup.exception.ReservationNotFoundException;
 import com.makeup.response.BaseResponse;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,8 @@ public class ExceptionController{
         String message = e.getMessage();
         return BaseResponse.error(message);
     }
+
+
 
     @ExceptionHandler(ReservationNotFoundException.class)
     public ResponseEntity<ApiResponse> handleReservationNotFoundException(ReservationNotFoundException e) {
