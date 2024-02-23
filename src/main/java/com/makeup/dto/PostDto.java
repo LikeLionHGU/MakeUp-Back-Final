@@ -33,6 +33,7 @@ public class PostDto {
                 .title(post.getTitle())
                 .imageUrl(post.getImageUrl())
                 .brandProducts(brandProducts)
+                .memberId(post.getMember().getMemberId())
                 .build();
     }
 

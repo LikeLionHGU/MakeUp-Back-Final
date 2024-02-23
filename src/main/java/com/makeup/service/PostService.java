@@ -88,12 +88,12 @@ public class PostService {
     }
 
     public PostDto getPostById(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
+        Post post = postRepository.findByIdWithMember(postId).orElseThrow(PostNotFoundException::new);
         return PostDto.from(post);
     }
 
     public List<PostDto> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllWithMember();
         return posts.stream().map(PostDto::from).toList();
     }
 
