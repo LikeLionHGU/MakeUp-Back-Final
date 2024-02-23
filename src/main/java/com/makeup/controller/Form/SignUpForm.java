@@ -18,7 +18,7 @@ public class SignUpForm {
 
     private String birthYear;
 
-    private Gender gender;
+    private String gender;
 
     private String phoneNumber;
 

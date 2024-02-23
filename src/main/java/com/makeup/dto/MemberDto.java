@@ -31,7 +31,7 @@ public class MemberDto {
                 .userNickname(signUpForm.getUserNickname())
                 .password(signUpForm.getPassword())
                 .birthYear(signUpForm.getBirthYear())
-                .gender(signUpForm.getGender())
+                .gender(Gender.findByKor(signUpForm.getGender()))
                 .phoneNumber(signUpForm.getPhoneNumber())
                 .build();
     }

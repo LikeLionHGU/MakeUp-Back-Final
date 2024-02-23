@@ -1,5 +1,7 @@
 package com.makeup.config;
+import com.makeup.converter.GenderConverter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
